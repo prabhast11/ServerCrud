@@ -1,0 +1,61 @@
+.civildaily-form {
+    display: block;
+}
+
+.civildaily-form .form-group {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.civildaily-form .form-group input.form-control,
+.civildaily-form .form-group textarea.form-control {
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #ced4da;
+  outline: none;
+  background: transparent;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  padding: 10px 0;
+  line-height: normal;
+}
+
+.civildaily-form .form-group input[type='text'].form-control:focus,
+.civildaily-form .form-group input[type='email'].form-control:focus,
+.civildaily-form .form-group textarea.form-control:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+}
+
+.civildaily-form label {
+  font-family: "Raleway-Bold", Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #282828;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  pointer-events: none;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
+}
+
+.civildaily-form .form-group input[type='text'].form-control:focus~label,
+.civildaily-form .form-group input[type='email'].form-control:focus~label,
+.civildaily-form .form-group textarea.form-control:focus~label,
+.civildaily-form .form-group input[type='text'].filled~label,
+.civildaily-form .form-group input[type='email'].filled~label,
+.civildaily-form .form-group textarea.filled:focus~label{
+  top: -20px;
+  font-size: 12px;
+  color: #004880;
+}
