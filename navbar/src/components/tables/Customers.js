@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import Pagination from "./Pagination";
 import { getCustomerDetails } from "../../services/getApi";
 import { deleteCustomerDetails } from "../../services/deleteApi.js";
 import Customersform from "../FORMS/CustomersForm";
 import EditCustomersForm from "../EditFormss/EditCustomersForm";
 import { updateCustomerData } from "../../services/EditApidataadd";
+import { AuthContext } from '../context/Auth-Context'
+
 
 class Customers extends Component {
+
+  static contextType=AuthContext;
+
   state = {
     result: [],
     currentPage: 0,
@@ -83,7 +85,6 @@ class Customers extends Component {
       );
       await this.setState({ result: res.data.response });
       await this.setState({ count: res.data.count });
-      console.log("customers", this.state.result);
     };
     fetchData();
   }
@@ -99,9 +100,12 @@ class Customers extends Component {
 
   //delete api
   delete = async (id) => {
+    const  token=this.context.token
+
+
     var result = window.confirm("Want to delete?");
     if (result) {
-      await deleteCustomerDetails(id);
+      await deleteCustomerDetails(id, token);
       const res = await getCustomerDetails(
         this.state.limit,
         this.state.currentPage
@@ -113,7 +117,7 @@ class Customers extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ padding: "20px" }}    >
         <div
           style={{
             float: "right",
@@ -140,7 +144,7 @@ class Customers extends Component {
           </thead>
           <tbody>
             {this.state.result.map((res, index, arr) => (
-              <tr>
+              <tr key={index}>
                 <td>{res.Name}</td>
                 <td>{res.License}</td>
                 <td>{res.ChannelPartner}</td>

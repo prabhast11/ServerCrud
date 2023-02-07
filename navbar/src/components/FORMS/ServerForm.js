@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Button, Form, Modal, Col, Ro } from "react-bootstrap";
+import {  Form, Modal, Col, Ro } from "react-bootstrap";
+import Button from '@mui/material/Button';
+
 
 import { AddServerDetails } from "../../services/addApi";
 import { AuthContext } from '../context/Auth-Context'
@@ -51,14 +53,12 @@ class ServerDetailsModel extends Component {
         /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
       if (ipAddressRegex.test(this.state.ipAddresses)) {
         
-        console.log("Valid IP address");
         e.preventDefault();
         this.setState({ ipPrompt: false });
 
         const  token=this.context.token
 
         const response = await AddServerDetails(this.state, token);
-        console.log("token in server form",token)
         this.setState({ data: response });
         window.location.href = "/ServerDetails";
       } 
@@ -86,16 +86,14 @@ class ServerDetailsModel extends Component {
     return (
       <div className="App">
         <div class="container p-2">
-          <Button
-            type="button"
-            class=""
+        <Button
+          variant="contained" size="small"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            style={{ background: "blueviolet", borderRadius: "18px" }}
+            style={{ background: "#673FBD" }}
           >
             Add Details
           </Button>
-
           <div
             class="modal fade"
             id="exampleModal"
@@ -112,7 +110,6 @@ class ServerDetailsModel extends Component {
                   <button
                     type="button"
                     class="btn-close"
-                    // onClick={this.handleClose}
                     onClick={this.toggleModal}
                     data-bs-dismiss="modal"
                     aria-label="Close"
@@ -303,34 +300,26 @@ class ServerDetailsModel extends Component {
                   </Form>
                   <br></br>
                   <Modal.Footer>
-                    <Button
-                      type="submit"
-                      class=""
+                 <Button
+                    variant="contained" size="small"
                       onClick={this.handleSubmit}
                       style={{
                         background: "green",
-                        borderRadius: "18px",
-                        width: "75px",
+                        margin : "10px"
                       }}
                     >
                       Save
                     </Button>
-
                     <Button
-                      type="button"
-                      class=""
+                    variant="contained" size="small"
                       data-bs-dismiss="modal"
-                      // onClick={this.handleClose}
-                      onClick={this.toggleModal}
                       style={{
                         background: "red",
-                        borderRadius: "18px",
-                        margin: "10px",
-                        width: "75px",
                       }}
                     >
                       Close
                     </Button>
+
                   </Modal.Footer>
                 </div>
               </div>

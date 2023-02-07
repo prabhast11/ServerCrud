@@ -20,7 +20,6 @@ exports.servicesDetails=[
     check('Description').not().isEmpty(),
     check('Port').not().isEmpty(),
     check('ServiceType').not().isEmpty(),
-    //check('firstCustomer').not().isEmpty()
     
 
 ]
@@ -32,7 +31,6 @@ exports.telcoProviderDetails=[
     check('Port').not().isEmpty(),
     check('User').not().isEmpty(),
     check('Password').not().isEmpty(),
-    //check('MediaIP').not().isEmpty(),
     check('SBCIPAndPort').not().isEmpty(),
     check('GatewayIP').not().isEmpty(),
     check('Domain').not().isEmpty(),

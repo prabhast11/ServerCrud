@@ -2,18 +2,16 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { updatePalatNumberData } from "../../services/EditApidataadd";
+import Button from '@mui/material/Button';
+
 
 class EditPalatNumberForm extends Component {
   state = {
     toggle: false,
     id: this.props.id,
-    updatedDetails: {
-      did_number: this.props.did_number,
-      channel: this.props.channel,
-    },
     Prompt: false,
   };
 
@@ -31,7 +29,6 @@ class EditPalatNumberForm extends Component {
   render() {
     return (
       <div>
-        {console.log(this.props.used)}
         <p onClick={this.toggleModal} btn bg-transparent>
           {" "}
           <DriveFileRenameOutlineIcon
@@ -92,35 +89,29 @@ class EditPalatNumberForm extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              onClick={(e) => {
-                this.props.func1(this.props.index, e);
-              }}
-              type="submit"
-              class=""
-              style={{
-                background: "green",
-                borderRadius: "18px",
-                width: "75px",
-              }}
-            >
-              Save
-            </Button>
+          <Button
+                    variant="contained" size="small"
+                      onClick={(e) => { this.props.func1(this.props.index,e) } }
+                      style={{
+                        background: "green",
+                        margin : "10px"
+                      }}
+                    >
+                      Save
+                    </Button>
 
-            <Button
-              onClick={this.toggleModal}
-              type="button"
-              class=""
-              data-bs-dismiss="modal"
-              style={{
-                background: "red",
-                borderRadius: "18px",
-                margin: "10px",
-                width: "75px",
-              }}
-            >
-              Close
-            </Button>
+                    <Button
+                    variant="contained" size="small"
+                    onClick={this.toggleModal}
+
+                      data-bs-dismiss="modal"
+                      style={{
+                        background: "red",
+                      }}
+                    >
+                      Close
+                    </Button>
+            
           </Modal.Footer>
         </Modal>
       </div>

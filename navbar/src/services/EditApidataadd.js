@@ -1,20 +1,10 @@
 
-// export const getPalatNumberDetails = async(data,id)=>{
-//     try{
-//       return  await axios.post(`${URL}/${id}`,data)
-//     }catch(error){
-//         console.log("Error while getting Palat Number",error)
-//     }
-// }
-
-
-
 
 import axios from "axios"
 
 
 
-const URL="http://localhost:8000";
+const URL=  process.env.REACT_APP_BACKEND_URL ||  "http://localhost:8000"
 
 
 export const updateServerData = async(data,id) =>{

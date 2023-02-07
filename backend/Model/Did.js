@@ -8,7 +8,11 @@ const didSchema=mongoose.Schema({
     used :{
         type:String,
         require:true
-    }
+    },
+    createdAt: {
+        type: Date, 
+        default: Date.now 
+       },
 })
 
 

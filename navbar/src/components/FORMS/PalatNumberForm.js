@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import {  Form, Modal } from "react-bootstrap";
 import { AddPalatNumberDetails } from "../../services/addApi";
 import { AuthContext } from '../context/Auth-Context'
+import Button from '@mui/material/Button';
+
 
 class PalatNumberForm extends Component {
 
@@ -39,14 +41,13 @@ class PalatNumberForm extends Component {
     return (
       <div className="App">
         <div class="container p-2">
-          <Button
-            type="button"
-            class=""
+        <Button
+          variant="contained" size="small"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            style={{ background: "blueviolet", borderRadius: "18px" }}
+            style={{ background: "#673FBD" }}
           >
-            AddDetails
+            Add Details
           </Button>
           <div
             class="modal fade"
@@ -111,31 +112,27 @@ class PalatNumberForm extends Component {
                   </form>
                   <br></br>
                   <Modal.Footer>
-                    <Button
-                      type="submit"
-                      class=""
+                    
+                  <Button
+                    variant="contained" size="small"
                       onClick={this.handleSubmit}
                       style={{
                         background: "green",
-                        borderRadius: "18px",
-                        width: "75px",
+                        margin : "10px"
                       }}
                     >
                       Save
-                    </Button>
+                    </Button>                      
                     <Button
-                      type="button"
-                      class=""
+                    variant="contained" size="small"
                       data-bs-dismiss="modal"
                       style={{
                         background: "red",
-                        borderRadius: "18px",
-                        margin: "10px",
-                        width: "75px",
                       }}
                     >
                       Close
                     </Button>
+
                   </Modal.Footer>
                 </div>
               </div>

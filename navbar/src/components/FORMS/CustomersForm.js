@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import {  Form, Modal } from "react-bootstrap";
 
 import { AddCustomerDetails } from "../../services/addApi";
 import { Link } from "react-router-dom";
 import { AuthContext } from '../context/Auth-Context'
+import Button from '@mui/material/Button';
+
+
+
 class Customersform  extends Component {
 
   static contextType=AuthContext;
@@ -50,15 +54,15 @@ class Customersform  extends Component {
     return (
       <div className="App">
         <div class="container p-2">
-          <Button
-            type="button"
-            class=""
+        <Button
+          variant="contained" size="small"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            style={{ background: "blueviolet", borderRadius: "18px" }}
+            style={{ background: "#673FBD" }}
           >
-            AddDetails
+            Add Details
           </Button>
+
 
           <div
             class="modal fade"
@@ -230,28 +234,21 @@ class Customersform  extends Component {
                   </Form>
                   <br></br>
                   <Modal.Footer>
-                    <Button
-                      type="submit"
-                      class=""
+                  <Button
+                    variant="contained" size="small"
                       onClick={this.handleSubmit}
                       style={{
                         background: "green",
-                        borderRadius: "18px",
-                        width: "75px",
+                        margin : "10px"
                       }}
                     >
                       Save
                     </Button>
-
                     <Button
-                      type="button"
-                      class=""
+                    variant="contained" size="small"
                       data-bs-dismiss="modal"
                       style={{
                         background: "red",
-                        borderRadius: "18px",
-                        margin: "10px",
-                        width: "75px",
                       }}
                     >
                       Close

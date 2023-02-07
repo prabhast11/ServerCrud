@@ -24,7 +24,11 @@ const customerSchema=mongoose.Schema({
     DidCount	:{
         type:Number,
         require:true
-    }
+    },
+    createdAt: {
+        type: Date, 
+        default: Date.now 
+       },
 
 })
 

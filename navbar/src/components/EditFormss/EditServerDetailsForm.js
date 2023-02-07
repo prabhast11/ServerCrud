@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { updateServerData } from "../../services/EditApidataadd";
+import Button from '@mui/material/Button';
+
 
 class EditServerDetailsForm extends Component {
   state = {
@@ -23,37 +25,8 @@ class EditServerDetailsForm extends Component {
     prompt: false,
   };
 
-  handleSubmit = async (e) => {
-    console.log("inside handleSubmit");
-    if (
-      this.state.ipAddresses === "" ||
-      this.state.type === "" ||
-      this.state.providers === "" ||
-      this.state.Interfaces === "" ||
-      this.state.Ram === "" ||
-      this.state.Core === "" ||
-      this.state.Hdd === "" ||
-      this.state.ServerType === ""
-    ) {
-      this.setState({ prompt: true });
-      console.log("prompt variable11111", this.state.prompt);
-    } else {
-      const ipAddressRegex =
-        /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-      if (ipAddressRegex.test(this.state.ipAddresses)) {
-        e.preventDefault();
-        this.setState({ ipPrompt: false });
-        await updateServerData(this.state.updatedDetails, this.state.id);
-        window.location.href = "/ServerDetails";
-      } 
-      else {
-        console.log("Invalid IP address");
-        this.setState({ ipAddresses: "" });
-        this.setState({ ipPrompt: true });
-      }
-    }
-  };
-
+  
+  
 async  shouldComponentUpdate(prevProps, prevState) {
     if (prevState.value !== this.state.value) {
 
@@ -247,33 +220,30 @@ async  shouldComponentUpdate(prevProps, prevState) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button
-              onClick={(e) => { this.props.func1(this.props.index,e) } }
-              type="submit"
-              class=""
-              style={{
-                background: "green",
-                borderRadius: "18px",
-                width: "75px",
-              }}
-            >
-              Save
-            </Button>
+          <Button
+                    variant="contained" size="small"
+                      onClick={(e) => { this.props.func1(this.props.index,e) } }
+                      style={{
+                        background: "green",
+                        margin : "10px"
+                      }}
+                    >
+                      Save
+                    </Button>
 
-            <Button
-              onClick={this.toggleModal}
-              type="button"
-              class=""
-              data-bs-dismiss="modal"
-              style={{
-                background: "red",
-                borderRadius: "18px",
-                margin: "10px",
-                width: "75px",
-              }}
-            >
-              Close
-            </Button>
+                    <Button
+                    variant="contained" size="small"
+                    onClick={this.toggleModal}
+
+                      data-bs-dismiss="modal"
+                      style={{
+                        background: "red",
+                      }}
+                    >
+                      Close
+                    </Button>
+
+           
           </Modal.Footer>
         </Modal>
       </div>

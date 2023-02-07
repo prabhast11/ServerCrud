@@ -32,7 +32,11 @@ const ServerDetailSchema=mongoose.Schema({
     ServerType:{
         type:String,
         require:true
-    }
+    },
+    createdAt: {
+        type: Date, 
+        default: Date.now 
+       },
 
 })
 

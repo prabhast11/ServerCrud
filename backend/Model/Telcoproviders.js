@@ -56,7 +56,11 @@ const telcoProviderSchema=mongoose.Schema({
      escalation_matrix_phoneno :{
         type:Number,
         require:true
-    }
+    },
+    createdAt: {
+        type: Date, 
+        default: Date.now 
+       },
 
 })
 

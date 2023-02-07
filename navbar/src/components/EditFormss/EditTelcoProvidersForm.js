@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { Modal, Button } from "react-bootstrap";
+import { Modal} from "react-bootstrap";
 
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 
@@ -13,28 +13,30 @@ import Select from "react-select";
 import { updateTelcoProviderData } from "../../services/EditApidataadd";
 import reactSelect from "react-select";
 import Multiselect from 'multiselect-react-dropdown';
+import Button from '@mui/material/Button';
+
 
 
 class EditTelcoProvidersForm extends Component {
   state = {
     toggle: false,
     id: this.props.id,
-    updatedDetails: {
-      Name: this.props.Name,
-      IP: this.props.IP,
-      Port: this.props.Port,
-      User: this.props.User,
-      Password: this.props.Password,
-      MediaIP: this.props.MediaIP,
-      SBCIPAndPort: this.props.SBCIPAndPort,
-      GatewayIP: this.props.GatewayIP,
-      Domain: this.props.Domain,
-      AccountManager: this.props.AccountManager,
-      TechnicalManager: this.props.TechnicalManager,
-      escalation_matrix_name: this.props.escalation_matrix_name,
-      escalation_matrix_email: this.props.escalation_matrix_email,
-      escalation_matrix_phoneno: this.props.escalation_matrix_phoneno,
-    },
+    // updatedDetails: {
+    //   Name: this.props.Name,
+    //   IP: this.props.IP,
+    //   Port: this.props.Port,
+    //   User: this.props.User,
+    //   Password: this.props.Password,
+    //   MediaIP: this.props.MediaIP,
+    //   SBCIPAndPort: this.props.SBCIPAndPort,
+    //   GatewayIP: this.props.GatewayIP,
+    //   Domain: this.props.Domain,
+    //   AccountManager: this.props.AccountManager,
+    //   TechnicalManager: this.props.TechnicalManager,
+    //   escalation_matrix_name: this.props.escalation_matrix_name,
+    //   escalation_matrix_email: this.props.escalation_matrix_email,
+    //   escalation_matrix_phoneno: this.props.escalation_matrix_phoneno,
+    // },
     Prompt: false,
   };
 
@@ -42,53 +44,19 @@ class EditTelcoProvidersForm extends Component {
     this.setState({ toggle: !this.state.toggle });
   };
 
-  handleSubmit = async (e) => {
-    if (
-      this.state.updatedDetails.Name === "" ||
-      this.state.updatedDetails.IP === "" ||
-      this.state.updatedDetails.Port === "" ||
-      this.state.updatedDetails.User === "" ||
-      this.state.updatedDetails.Password === "" ||
-      // this.state.MediaIP === "" ||
-      this.state.updatedDetails.SBCIPAndPort === "" ||
-      this.state.updatedDetails.GatewayIP === "" ||
-      this.state.updatedDetails.AccountManager === "" ||
-      this.state.updatedDetails.TechnicalManager === "" ||
-      this.state.updatedDetails.escalation_matrix_name === "" ||
-      this.state.updatedDetails.escalation_matrix_email === "" ||
-      this.state.updatedDetails.escalation_matrix_phoneno === ""
-    ) {
-      this.setState({ Prompt: true });
-      console.log("prompt variable11111", this.state.Prompt);
-    } else {
-      e.preventDefault();
-      await updateTelcoProviderData(this.state.updatedDetails, this.state.id);
-      window.location.href = "/telcoProviderDetails";
-    }
-  };
 
   handleCustomerName=(selectedList, selectedItem)=>{
     var updatedDetails={...this.state.updatedDetails}
     updatedDetails.MediaIP=selectedList
-      // this.setState({updatedDetails:{...this.state.updatedDetails,firstCustomer:selectedItem}})
       this.setState({updatedDetails})
-      
-      this.props.func2(updatedDetails, this.props.index);
-
-    console.log("selectedList",selectedList);
-    console.log("SelectedItem",selectedItem)
+     this.props.func2(updatedDetails, this.props.index);
   }
 
   handleRemove=(selectedList,removedItem)=>{
     var updatedDetails={...this.state.updatedDetails}
     updatedDetails.MediaIP=selectedList
-      // this.setState({updatedDetails:{...this.state.updatedDetails,firstCustomer:selectedItem}})
       this.setState({updatedDetails})
-
       this.props.func2(updatedDetails, this.props.index);
-
-    console.log("removed item",removedItem)
-    console.log("removed item",selectedList)
   }
 
   handleChange = (e) => {
@@ -440,34 +408,28 @@ class EditTelcoProvidersForm extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              onClick={(e) => {
-                this.props.func1(this.props.index, e);
-              }}
-              type="submit"
-              class=""
-              style={{
-                background: "green",
-                borderRadius: "18px",
-                width: "75px",
-              }}
-            >
-              Save
-            </Button>
-            <Button
-              onClick={this.toggleModal}
-              type="button"
-              class=""
-              data-bs-dismiss="modal"
-              style={{
-                background: "red",
-                borderRadius: "18px",
-                margin: "10px",
-                width: "75px",
-              }}
-            >
-              Close
-            </Button>
+          <Button
+                    variant="contained" size="small"
+                      onClick={(e) => { this.props.func1(this.props.index,e) } }
+                      style={{
+                        background: "green",
+                        margin : "10px"
+                      }}
+                    >
+                      Save
+                    </Button>
+
+                    <Button
+                    variant="contained" size="small"
+                    onClick={this.toggleModal}
+
+                      data-bs-dismiss="modal"
+                      style={{
+                        background: "red",
+                      }}
+                    >
+                      Close
+                    </Button>
           </Modal.Footer>
         </Modal>
       </div>

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import {  Form, Modal } from "react-bootstrap";
 
 import { AddProvidersDetails } from "../../services/addApi";
 import { AuthContext } from '../context/Auth-Context'
+import Button from '@mui/material/Button';
+
 
 class Providersform extends Component {
 
@@ -27,8 +29,8 @@ class Providersform extends Component {
     this.setState({toggle:!this.state.toggle})
 }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange = async (e) => {
+   await this.setState({ [e.target.name]: e.target.value });
   };
 
 
@@ -44,7 +46,6 @@ class Providersform extends Component {
       this.state.TechnicalContactManager === ""
     ) {
       this.setState({ Prompt: true });
-      console.log("prompt variable11111", this.state.Prompt);
     } else {
       e.preventDefault();
       const  token=this.context.token
@@ -57,12 +58,11 @@ class Providersform extends Component {
     return (
       <div className="App">
         <div class="container p-2">
-          <Button
-            type="button"
-            class=""
+        <Button
+          variant="contained" size="small"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            style={{ background: "blueviolet", borderRadius: "18px" }}
+            style={{ background: "#673FBD" }}
           >
             Add Details
           </Button>
@@ -252,31 +252,22 @@ class Providersform extends Component {
                   </Form>
                   <br></br>
                   <Modal.Footer>
-                    <Button
-                      type="submit"
-                      class=""
+                  <Button
+                    variant="contained" size="small"
                       onClick={this.handleSubmit}
                       style={{
                         background: "green",
-                        borderRadius: "18px",
-                        width: "75px",
+                        margin : "10px"
                       }}
                     >
                       Save
                     </Button>
-
                     <Button
-                      type="button"
-                      class=""
+                    variant="contained" size="small"
                       data-bs-dismiss="modal"
                       style={{
                         background: "red",
-                        borderRadius: "18px",
-                        margin: "10px",
-                        width: "75px",
                       }}
-                      // onClick={this.handleClose}
-                      onClick={this.toggleModal}
                     >
                       Close
                     </Button>

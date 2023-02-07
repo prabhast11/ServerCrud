@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import Pagination from "./Pagination";
 import { getdidDetails } from "../../services/getApi";
 import { deletedidDetails } from "../../services/deleteApi";
@@ -11,7 +8,13 @@ import DidForm from "../FORMS/DidForm";
 import EditDidForm from "../EditFormss/EditDidForm";
 import { updateDidData } from "../../services/EditApidataadd";
 
+import { AuthContext } from '../context/Auth-Context'
+
 class Did extends Component {
+
+  static contextType=AuthContext;
+
+
   state = {
     result: [],
     data: [],
@@ -65,19 +68,9 @@ class Did extends Component {
     const res = await getdidDetails(this.state.limit, this.state.currentPage);
     await this.setState({ result: res.data.response });
     await this.setState({ count: res.data.count });
-
-    const res1 = await getdidDetails(this.state.count, 0);
+   const res1 = await getdidDetails(this.state.count, 0);
     await this.setState({ modelResult: res1.data.response }, () => {
-      console.log(
-        "my acutal desired  inside fetch result 1",
-        res1.data.response
-      );
-      console.log(
-        "my acutal desired  inside fetch result 2",
-        this.state.modelResult
-      );
     });
-    console.log("heloooooooooooooo");
   };
 
   componentDidMount() {
@@ -85,25 +78,14 @@ class Did extends Component {
       const res = await getdidDetails(this.state.limit, this.state.currentPage);
       await this.setState({ result: res.data.response });
       await this.setState({ count: res.data.count });
-      console.log("did", this.state.result);
-
       const res1 = await getdidDetails(this.state.count, 0);
       await this.setState({ modelResult: res1.data.response }, () => {
-        console.log(
-          "my acutal desired  inside fetch result 1",
-          res1.data.response
-        );
-        console.log(
-          "my acutal desired  inside fetch result 2",
-          this.state.modelResult
-        );
       });
     };
     fetchData();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // var limit = 3
     if (prevState.result !== this.state.result) {
       const fetchData = async () => {};
       fetchData();
@@ -111,13 +93,15 @@ class Did extends Component {
   }
 
   delete = async (id) => {
+    const  token=this.context.token
+
+
     var result = window.confirm("Want to delete?");
     if (result) {
-      await deletedidDetails(id);
+      await deletedidDetails(id, token);
       const res = await getdidDetails(this.state.limit, this.state.currentPage);
       await this.setState({ result: res.data.response });
       await this.setState({ count: res.data.count });
-      console.log(this.state.result);
     }
   };
   handleNextPage = () => {
@@ -141,11 +125,6 @@ class Did extends Component {
   handleChange = async (event) => {
     event.preventDefault();
     await this.setState({ limit: parseInt(event.target.value) });
-    console.log(
-      "select option value and it's type is ",
-      this.state.limit,
-      typeof this.state.limit
-    );
   };
 
   updateListing123 = async (event, index) => {
@@ -156,7 +135,7 @@ class Did extends Component {
   render() {
     let myvar;
     return (
-      <div class="">
+      <div style={{ padding: "20px" }}   >
         <div
           style={{
             float: "right",
@@ -178,7 +157,7 @@ class Did extends Component {
           </thead>
           <tbody>
             {this.state.result.map((res, index, arr) => (
-              <tr>
+              <tr key={index}>
                 <td>{res.listing}</td>
                 <td>{res.used}</td>
                 <td>

@@ -22,7 +22,6 @@ const addServerDetails =async (req,res)=>{
 
 
     const details=req.body;
-    console.log(details)
     const addDetails= new serverdetails(details);
     try{
          await addDetails.save();
@@ -39,11 +38,6 @@ const addProvidersDetails =async (req,res)=>{
     if(!errors.isEmpty()){
         return res.status(400).json({msg:"please check your data in add provider details"})
     }
-
-
-
-
-
     const details=req.body;
     const addDetails= new ProvidersDetails(details);
     try{
@@ -57,18 +51,10 @@ const addProvidersDetails =async (req,res)=>{
 
 
 const addCustomerDetails =async (req,res)=>{
-
-//console.log("req",req)
-
-
     const errors=validationResult(req)
     if(!errors.isEmpty()){
         return res.status(400).json({msg:"please check your data in add customer details"})
     }
-
-   // console.log("Headers",req.headers)
-
-
     const details=req.body;
     const addDetails= new CustomerDetails(details);
     try{
@@ -82,14 +68,10 @@ const addCustomerDetails =async (req,res)=>{
 
 
 const adddidDetails =async (req,res)=>{
-
-
     const errors=validationResult(req)
     if(!errors.isEmpty()){
         return res.status(400).json({msg:"please check your data add did details"})
     }
-
-
     const details=req.body;
     const addDetails= new didDetails(details);
     try{
@@ -103,15 +85,13 @@ const adddidDetails =async (req,res)=>{
 
 
 const addServicesDetails =async (req,res)=>{
-
-    const errors=validationResult(req)
+     const errors=validationResult(req)
     if(!errors.isEmpty()){
         return res.status(400).json({msg:"please check your data in add Services details"})
     }
 
 
     const details=req.body;
-    console.log("services details",details)
     const addDetails= new ServicesDetails(details);
     try{
          await addDetails.save();
@@ -159,10 +139,6 @@ const addPalatNumberDetails =async (req,res)=>{
         res.status(500).json("Error while adding Server details",error)
     }
 }
-
-
-
-
 
 
 module.exports={addServerDetails,addProvidersDetails,addCustomerDetails,adddidDetails,addServicesDetails,addtelcoProviderDetails,addPalatNumberDetails}

@@ -2,24 +2,18 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Modal, Button } from "react-bootstrap";
+import { Modal} from "react-bootstrap";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import moment from "moment";
 import { updateProviderData } from "../../services/EditApidataadd";
+import { timers } from "jquery";
+import Button from '@mui/material/Button';
+
 
 class EditProvidersForm extends Component {
   state = {
     toggle: false,
     id: this.props.id,
-    updatedDetails: {
-      Name: this.props.Name,
-      Initial: this.props.Initial,
-      Location: this.props.Location,
-      CurrentDate: moment(this.props.CurrentDate).utc().format("yyyy-MM-DD"),
-      UpdateDate: moment(this.props.UpdateDate).utc().format("yyyy-MM-DD"),
-      AccountManager: this.props.AccountManager,
-      TechnicalContactManager: this.props.TechnicalContactManager,
-    },
     Prompt: false,
   };
 
@@ -36,25 +30,6 @@ class EditProvidersForm extends Component {
     });
   };
 
-  handleSubmit = async (e) => {
-    if (
-      this.state.updatedDetails.Name === "" ||
-      this.state.updatedDetails.Initial === "" ||
-      this.state.updatedDetails.Location === "" ||
-      this.state.updatedDetails.CurrentDate === "" ||
-      this.state.updatedDetails.UpdateDate === "" ||
-      this.state.updatedDetails.AccountManager === "" ||
-      this.state.updatedDetails.TechnicalContactManager === ""
-    ) {
-      this.setState({ Prompt: true });
-      console.log("prompt variable11111", this.state.Prompt);
-    } else {
-      e.preventDefault();
-      await updateProviderData(this.state.updatedDetails, this.state.id);
-      console.log(this.state);
-      window.location.href = "/ProvidersDetails";
-    }
-  };
 
   render() {
     return (
@@ -75,7 +50,7 @@ class EditProvidersForm extends Component {
           </Modal.Header>
 
           <Modal.Body>
-            <Form onSubmit={this.handleSubmit}>
+            <Form>
               <div class="row">
                 <div class="col">
                   <Form.Label for="exampleInputEmail1" class="form-label">
@@ -168,7 +143,6 @@ class EditProvidersForm extends Component {
                     onChange={(e) => {
                       this.props.func(this.props.arr, this.props.index, e);
                     }}
-                    // value={this.props.arr[this.props.index].CurrentDate}
                     value={moment(this.props.arr[this.props.index].CurrentDate).utc().format('yyyy-MM-DD')  }
                   />
                   {this.state.Prompt &&
@@ -179,8 +153,6 @@ class EditProvidersForm extends Component {
                     )}
                 </div>
               </div>
-                {/* { console.log('printing the updated date', moment(this.props.arr[this.props.index].UpdateDate)).utc().format('yyyy-MM-DD')         } */}
-                {/* {console.log("Current date",moment(this.props.arr[this.props.index].UpdateDate).utc().format('yyyy-MM-DD'))} */}
               <div class="row">
                 <div class="col">
                   <Form.Label for="exampleInputEmail1" class="form-label">
@@ -196,7 +168,6 @@ class EditProvidersForm extends Component {
                     onChange={(e) => {
                       this.props.func(this.props.arr, this.props.index, e);
                     }}
-                    // value={this.props.arr[this.props.index].UpdateDate}
                     value={moment(this.props.arr[this.props.index].UpdateDate).utc().format('yyyy-MM-DD')  }
                   />
                   {this.state.Prompt &&
@@ -263,35 +234,28 @@ class EditProvidersForm extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              onClick={(e) => {
-                this.props.func1(this.props.index, e);
-              }}
-              type="submit"
-              class=""
-              style={{
-                background: "green",
-                borderRadius: "18px",
-                width: "75px",
-              }}
-            >
-              Save
-            </Button>
+          <Button
+                    variant="contained" size="small"
+                      onClick={(e) => { this.props.func1(this.props.index,e) } }
+                      style={{
+                        background: "green",
+                        margin : "10px"
+                      }}
+                    >
+                      Save
+                    </Button>
 
-            <Button
-              onClick={this.toggleModal}
-              type="button"
-              class=""
-              data-bs-dismiss="modal"
-              style={{
-                background: "red",
-                borderRadius: "18px",
-                margin: "10px",
-                width: "75px",
-              }}
-            >
-              Close
-            </Button>
+                    <Button
+                    variant="contained" size="small"
+                    onClick={this.toggleModal}
+
+                      data-bs-dismiss="modal"
+                      style={{
+                        background: "red",
+                      }}
+                    >
+                      Close
+                    </Button>
           </Modal.Footer>
         </Modal>
       </div>

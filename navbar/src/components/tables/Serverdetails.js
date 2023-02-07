@@ -1,25 +1,20 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import "../Table.css";
-import Models from "../../Models";
+import "./Table.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import Pagination from "./Pagination";
 import { updateServerData } from "../../services/EditApidataadd";
 import { getServerDetails } from "../../services/getApi";
 import { deleteServerDetails } from "../../services/deleteApi.js";
-import { getServerData } from "../../services/EditApi";
 import ServerDetailsModel from "../FORMS/ServerForm";
 import EditServerDetailsForm from "../EditFormss/EditServerDetailsForm";
 
+import { AuthContext } from '../context/Auth-Context'
+
 class Serverdetails extends Component {
+  
+  static contextType=AuthContext;
+  
   constructor() {
     super();
     this.state = {
@@ -74,8 +69,6 @@ class Serverdetails extends Component {
         this.state.result[index],
         this.state.result[index]._id
       );
-      console.log("updated data", data);
-
       window.location.href = "/ServerDetails";
     }
   };
@@ -102,7 +95,6 @@ class Serverdetails extends Component {
   myClickHandler = (e, row) => {
     e.preventDefault();
     this.setState({ ipAddresses: row.ipAddresses });
-    console.log("pt e.target.value", row);
   };
 
   fetchData1 = async (pno) => {
@@ -113,7 +105,6 @@ class Serverdetails extends Component {
     );
     await this.setState({ result: res.data.response });
     await this.setState({ count: res.data.count });
-    console.log("fetch data of server details :", this.state.result);
   };
 
   componentDidMount() {
@@ -124,7 +115,6 @@ class Serverdetails extends Component {
       );
       await this.setState({ result: res.data.response });
       await this.setState({ count: res.data.count });
-      console.log("fetch data of server details :", this.state.result);
     };
 
     fetchData();
@@ -132,7 +122,6 @@ class Serverdetails extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.result !== this.state.result) {
-      // Now fetch the new data here.
       const fetchData = async () => {
         await getServerDetails(this.state.limit, this.state.currentPage);
       };
@@ -141,9 +130,11 @@ class Serverdetails extends Component {
   }
 
   delete = async (id) => {
+    const  token=this.context.token
+
     var result = window.confirm("Want to delete?");
     if (result) {
-      await deleteServerDetails(id);
+      await deleteServerDetails(id, token);
       const res = await getServerDetails(
         this.state.limit,
         this.state.currentPage
@@ -166,7 +157,7 @@ class Serverdetails extends Component {
     ];
 
     return (
-      <div className="">
+      <div  style={{ padding: "20px" }} >
         <div
           style={{
             float: "right",
@@ -178,7 +169,7 @@ class Serverdetails extends Component {
         >
           <ServerDetailsModel />
         </div>
-        <Table striped bordered hover className="" w-auto>
+        <Table striped bordered hover className="" w-auto style={{marginRight : "1000px"}}>
           <thead>
             <tr>
               <th>IP ADDRESS</th>

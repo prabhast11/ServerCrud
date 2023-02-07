@@ -1,26 +1,24 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import Pagination from "./Pagination";
 import { getTelcoProviderDetails } from '../../services/getApi';
 import { deleteTelcoProviderDetails } from '../../services/deleteApi';
 import TelcoProvidersForm from '../FORMS/TelcoProvidersForm'
 import EditTelcoProvidersForm from '../EditFormss/EditTelcoProvidersForm'
 import { updateTelcoProviderData } from "../../services/EditApidataadd";
+import { AuthContext } from '../context/Auth-Context'
 
 
 class Telcoprovider extends Component {
-  state={
+    static contextType=AuthContext;
+    state={
     result:[],
     MediaIP : [],
     limit : 3,
     currentPage:0,
     count : 1
 }
-
 
 handleEntriesPerPageChange = async (event) =>{
   await this.setState({limit : event.target.value})
@@ -40,12 +38,8 @@ propsHandler = async (myarr,index, e) =>{
 }
 
 multiSelectHandler = async(data, index) =>{
-  // await this.setState({selectedOption : data})
-  console.log('..... my mutiselect.....', data , index)
-
   this.setState((state) => {
     const result = [...state.result];
-    // const index = items.findIndex((item) => item.id === id);
     result[index] = { ...result[index], MediaIP : data.MediaIP };
     return { result };
   });
@@ -105,9 +99,11 @@ await this.setState({result:res.data.response})
   }
 
   delete = async(id)=>{
+    const  token=this.context.token
+
   var result = window.confirm("Want to delete?");
   if (result) {
-    await deleteTelcoProviderDetails(id);
+    await deleteTelcoProviderDetails(id, token);
     const res=await getTelcoProviderDetails(this.state.limit, this.state.currentPage);
     await this.setState({result:res.data.response})
         await this.setState({count:res.data.count})
@@ -116,7 +112,7 @@ await this.setState({result:res.data.response})
 
   render() {
     return (
-      <div className="">
+      <div style={{ padding: "20px" }}  >
          <div
           style={{
             float: "right",
@@ -148,15 +144,13 @@ await this.setState({result:res.data.response})
           <tbody>
           {
               this.state.result.map((res,index,arr)=>(
-                <tr>
+                <tr key={index}>
                   <td>{res.Name}</td>
                   <td>{res.IP}</td>
                   <td>{res.Port}</td>
                   <td>{res.User}</td>
                   <td>{res.SBCIPAndPort}</td>
                   <td> {res.MediaIP.map((val,i)=>(
-                    //  <td>{val.label},</td> 
-                    // <td>{res.firstCustomer.length === i+1   ?  val.value :  ${val.value},}</td>
                     <td>{res.MediaIP.length === i+1   ?  val:  `${val},`}</td>
                   ))}</td>
                   <td>{res.GatewayIP}</td>
@@ -165,14 +159,11 @@ await this.setState({result:res.data.response})
                   <td>{res.TechnicalManager}</td>
                   <td>{res.escalation_matrix_name},{res.escalation_matrix_email},{res.escalation_matrix_phoneno}</td>
                   <td>
-                  <tr  className=''>
+                  <tr  key={index} className=''>
                 <td>
                   <DeleteOutlineIcon onClick={()=>this.delete(res._id)} tool style={{ color: "blueviolet", cursor : "pointer" }} />
                 </td>
                 <td>
-
-                  {console.log('updated media ip...', this.state.result)}
-
                <EditTelcoProvidersForm 
                 index={index}
                 arr={arr}

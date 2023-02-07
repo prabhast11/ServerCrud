@@ -1,10 +1,8 @@
 import axios from "axios"
 
 
-const URL="http://localhost:8000";
+const URL=  process.env.REACT_APP_BACKEND_URL ||  "http://localhost:8000"
 
-
-//{ headers: {'Authorization' : `Bearer ${token}` } }
 
 export const AddServerDetails =async(data,token)=>{
     try{
@@ -35,9 +33,7 @@ export const AddProvidersDetails =async(data,token)=>{
 }
 
 export const AddCustomerDetails =async(data,token)=>{
-    console.log(`Bearer ${token}` )
     try{
-        //const headers = { 'Authorization': `Bearer ${token}` };
         return await axios.post(`${URL}/CustomerDetail`,data,{
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -101,24 +97,3 @@ export const AddPalatNumberDetails =async(data,token)=>{
         console.log("Error while adding PLATA NUMBER DETAILS",error);
     }
 }
-
-
-
-
-
-//call  this in component did mount
-// const getAll = async ()=>{
-//     let response = await getdata();
-//     setdata(response.data)
-// }
-
-// //delete api
-// const deleteusers = async(id)=>{
-//     await deleteusers(id);
-//     getAll()
-// }
-
-// state.map(s=>(
-//     //all tabels cell
-//     onclick={()=>delete(state._id)}
-// ))

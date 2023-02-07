@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import {  Form, Modal } from "react-bootstrap";
 import { AddtelcoProviderDetails } from "../../services/addApi";
-import { getCustomerDetails } from "../../services/getApi";
-import Select from "react-select";
 import Multiselect from 'multiselect-react-dropdown';
 import { AuthContext } from '../context/Auth-Context'
+import Button from '@mui/material/Button';
+
 
 
 class TelcoProvidersForm extends Component {
@@ -88,19 +88,18 @@ class TelcoProvidersForm extends Component {
     "Media4"
 ]
 
-    console.log(this.state.customerResult);
     return (
       <div className="App">
         <div class="container p-2">
-          <Button
-            type="button"
-            class=""
+        <Button
+          variant="contained" size="small"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            style={{ background: "blueviolet", borderRadius: "18px" }}
+            style={{ background: "#673FBD" }}
           >
-            AddDetails
+            Add Details
           </Button>
+
 
           <div
             class="modal fade"
@@ -274,7 +273,6 @@ class TelcoProvidersForm extends Component {
                           isObject={false}
                         options={media_ip}
                       onSelect={this.handleChange2}
-                  //value={this.state.firstCustomer}
                   />
                   {this.state.Prompt && this.state.MediaIP.length === 0 && (
                             <span style={{ color: "red" , fontSize: "14px"}}>
@@ -421,32 +419,28 @@ class TelcoProvidersForm extends Component {
                   </Form>
                   <br></br>
                   <Modal.Footer>
-                    <Button
-                      type="submit"
+                    
+
+                  <Button
+                    variant="contained" size="small"
                       onClick={this.handleSubmit}
-                      class=""
                       style={{
                         background: "green",
-                        borderRadius: "18px",
-                        width: "75px",
+                        margin : "10px"
                       }}
                     >
                       Save
                     </Button>
-
                     <Button
-                      type="button"
-                      class=""
+                    variant="contained" size="small"
                       data-bs-dismiss="modal"
                       style={{
                         background: "red",
-                        borderRadius: "18px",
-                        margin: "10px",
-                        width: "75px",
                       }}
                     >
                       Close
                     </Button>
+
                   </Modal.Footer>
                 </div>
               </div>

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import {  Form, Modal } from "react-bootstrap";
 
 import { AdddidDetails } from "../../services/addApi";
 import { AuthContext } from '../context/Auth-Context'
+import Button from '@mui/material/Button';
+
 
 class DidForm extends Component {
 
@@ -24,7 +26,6 @@ class DidForm extends Component {
   handleSubmit = async (e) => {
     if (this.state.listing === "" || this.state.used === "") {
       this.setState({ Prompt: true });
-      console.log("prompt variable11111", this.state.Prompt);
     } else {
       e.preventDefault();
       const  token=this.context.token
@@ -39,13 +40,12 @@ class DidForm extends Component {
       <div className="App">
         <div class="container p-2">
           <Button
-            type="button"
-            class=""
+          variant="contained" size="small"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            style={{ background: "blueviolet", borderRadius: "18px" }}
+            style={{ background: "#673FBD" }}
           >
-            AddDetails
+            Add Details
           </Button>
 
           <div
@@ -125,27 +125,20 @@ class DidForm extends Component {
                   <br></br>
                   <Modal.Footer>
                     <Button
-                      type="submit"
-                      class=""
+                    variant="contained" size="small"
                       onClick={this.handleSubmit}
                       style={{
                         background: "green",
-                        borderRadius: "18px",
-                        width: "75px",
+                        margin : "10px"
                       }}
                     >
                       Save
                     </Button>
-
-                    <Button
-                      type="button"
-                      class=""
+                       <Button
+                    variant="contained" size="small"
                       data-bs-dismiss="modal"
                       style={{
                         background: "red",
-                        borderRadius: "18px",
-                        margin: "10px",
-                        width: "75px",
                       }}
                     >
                       Close

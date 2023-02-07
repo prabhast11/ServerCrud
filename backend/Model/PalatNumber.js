@@ -8,7 +8,11 @@ const PalatNumberschema=mongoose.Schema({
        channel :{
         type:Number,
         require:true
-    }
+    },
+    createdAt: {
+         type: Date, 
+         default: Date.now 
+        },
     
 
 })

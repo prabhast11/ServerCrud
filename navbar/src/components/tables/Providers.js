@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import "../Table.css";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import "./Table.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Pagination from "./Pagination";
 import { getProvidersDetails } from "../../services/getApi";
@@ -12,7 +9,15 @@ import Providersform from "../FORMS/ProvidersForm";
 import { updateProviderData } from "../../services/EditApidataadd";
 import moment from "moment";
 import EditProvidersForm from "../EditFormss/EditProvidersForm";
+import { AuthContext } from '../context/Auth-Context'
+
+
+
 class Providers extends Component {
+
+  static contextType=AuthContext;
+
+
   state = {
     result: [],
     currentPage: 0,
@@ -36,12 +41,14 @@ class Providers extends Component {
     await this.setState((state, props) => {
       const updatedArray = state.result.map((item, i) => {
         if (i !== index) return item;
-        return { ...item, [e.target.name]: e.target.value };
+        if(e.target.name === "CurrentDate"  || e.target.name === "UpdateDate" )
+        {
+          return { ...item, [e.target.name]: new Date(e.target.value).toISOString() };
+        }
+        return { ...item, [e.target.name]: e.target.value};
       });
       return { result: updatedArray };
     });
-
-    console.log("Printing updated array", this.state.result);
   };
 
   handleSubmit = async (index, e) => {
@@ -61,16 +68,11 @@ class Providers extends Component {
         this.state.result[index],
         this.state.result[index]._id
       );
-      console.log("updated data", data);
-
-      // this.setState({toggle : ! this.state.toggle})
-
       window.location.href = "/ProvidersDetails";
     }
   };
 
   editClickHandler = async () => {
-    console.log("you updated the edit data");
   };
 
   fetchData1 = async (pno) => {
@@ -105,9 +107,10 @@ class Providers extends Component {
   }
 
   delete = async (id) => {
+    const  token=this.context.token
     var result = window.confirm("Want to delete?");
     if (result) {
-      await deleteProvidersDetails(id);
+      await deleteProvidersDetails(id,token );
       const res = await getProvidersDetails(
         this.state.limit,
         this.state.currentPage
@@ -119,7 +122,7 @@ class Providers extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ padding: "20px" }}>
         <div
           style={{
             float: "right",
@@ -147,7 +150,7 @@ class Providers extends Component {
           </thead>
           <tbody>
             {this.state.result.map((res, index, arr) => (
-              <tr>
+              <tr key={index}>
                 <td>{res.Name}</td>
                 <td>{res.Initial}</td>
                 <td>{res.Location}</td>

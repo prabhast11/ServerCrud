@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Modal, Button } from "react-bootstrap";
+import { Modal} from "react-bootstrap";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import { updateDidData } from "../../services/EditApidataadd";
+import Button from '@mui/material/Button';
+
 
 class EditDidForm extends Component {
   state = {
@@ -12,26 +14,10 @@ class EditDidForm extends Component {
     yes: "Yes",
     No: "No",
     id: this.props.id,
-    updatedDetails: {
-      listing: this.props.listing,
-      used: this.props.used,
-    },
     Prompt: false,
   };
 
-  handleSubmit = async (e) => {
-    if (
-      this.state.updatedDetails.listing === "" ||
-      this.state.updatedDetails.used === ""
-    ) {
-      this.setState({ Prompt: true });
-      console.log("prompt variable11111", this.state.Prompt);
-    } else {
-      e.preventDefault();
-      await updateDidData(this.state.updatedDetails, this.state.id);
-      window.location.href = "/didDetails";
-    }
-  };
+ 
 
   toggleModal = async () => {
     await this.setState({ toggle: !this.state.toggle });
@@ -99,7 +85,6 @@ class EditDidForm extends Component {
                   id="yes"
                   name="used"
                   required
-                  // checked={isChecked(this.state.updatedDetails.used)}
                   checked={this.props.arr[this.props.index].used === "Yes"}
                   onChange={(e) => { this.props.func(this.props.arr, this.props.index, e)  } }
                   value={this.state.yes}
@@ -111,8 +96,7 @@ class EditDidForm extends Component {
                   id="no"
                   name="used"
                   value="No"
-                  onChange={this.handleChange}
-                  // checked={isChecked(this.state.updatedDetails.used)}
+                  onChange={(e) => { this.props.func(this.props.arr, this.props.index, e)  } }
                   checked={this.props.arr[this.props.index].used === "No"}
                 />
                 <label for="no">No</label>
@@ -127,33 +111,29 @@ class EditDidForm extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button
-              type="submit"
-              onClick={(e) => { this.props.func1(this.props.index,e) } }
-              class=""
-              style={{
-                background: "green",
-                borderRadius: "18px",
-                width: "75px",
-              }}
-            >
-              Save
-            </Button>
 
-            <Button
-              onClick={this.toggleModal}
-              type="button"
-              class=""
-              data-bs-dismiss="modal"
-              style={{
-                background: "red",
-                borderRadius: "18px",
-                margin: "10px",
-                width: "75px",
-              }}
-            >
-              Close
-            </Button>
+          <Button
+                    variant="contained" size="small"
+                      onClick={(e) => { this.props.func1(this.props.index,e) } }
+                      style={{
+                        background: "green",
+                        margin : "10px"
+                      }}
+                    >
+                      Save
+                    </Button>
+
+                    <Button
+                    variant="contained" size="small"
+                    onClick={this.toggleModal}
+
+                      data-bs-dismiss="modal"
+                      style={{
+                        background: "red",
+                      }}
+                    >
+                      Close
+                    </Button>
 
           </Modal.Footer>
         </Modal>

@@ -1,11 +1,11 @@
 import axios from "axios"
 
 
-const URL="http://localhost:8000";
+const URL=  process.env.REACT_APP_BACKEND_URL ||  "http://localhost:8000"
 
 export const deleteServerDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/ServerDetails/d`, { id : id },{
+      return  await axios.post(`${URL}/ServerDetails`, { id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -18,7 +18,7 @@ export const deleteServerDetails = async(id,token)=>{
 
 export const deleteProvidersDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/ProvidersDetails/d`, { id : id },{
+      return  await axios.post(`${URL}/ProvidersDetails`, { id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -30,7 +30,7 @@ export const deleteProvidersDetails = async(id,token)=>{
 }
 export const deleteCustomerDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/CustomerDetails/d`, { id : id },{
+      return  await axios.post(`${URL}/CustomerDetails`, { id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -42,7 +42,7 @@ export const deleteCustomerDetails = async(id,token)=>{
 }
 export const deletedidDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/didDetails/d`,{ id : id },{
+      return  await axios.post(`${URL}/didDetails`,{ id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -54,7 +54,7 @@ export const deletedidDetails = async(id,token)=>{
 }
 export const deleteServicesDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/ServicesDetails/d`, { id : id },{
+      return  await axios.post(`${URL}/ServicesDetails`, { id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -66,7 +66,7 @@ export const deleteServicesDetails = async(id,token)=>{
 }
 export const deleteTelcoProviderDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/telcoProviderDetails/d`, { id : id },{
+      return  await axios.post(`${URL}/telcoProviderDetails`, { id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
@@ -78,7 +78,7 @@ export const deleteTelcoProviderDetails = async(id,token)=>{
 }
 export const deletePalatNumberDetails = async(id,token)=>{
     try{
-      return  await axios.post(`${URL}/PalatNumberDetails/d`, { id : id },{
+      return  await axios.post(`${URL}/PalatNumberDetails`, { id : id },{
         headers: {
           'Authorization': `Bearer ${token}`,
 
